@@ -3,7 +3,7 @@ import {  useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Form, Button } from "react-bootstrap";
 import FormContainer from "../Components/FormContainer";
-
+import { setCredentials } from "../Slice/authSlice";
 import { toast } from "react-toastify";
 import Loader from "../Components/Loader";
 import axios from 'axios'
@@ -20,6 +20,8 @@ function LoginScreen() {
     axios.post('api/admin/adminLogin',{email:email,password:password})
     .then((res)=>{
         console.log(res.data)
+        const adminDetails = res.data
+        dispatch(setCredentials({...adminDetails}))
         setEmail('')
         setPassword('')     
             navigate('/adminDash')    

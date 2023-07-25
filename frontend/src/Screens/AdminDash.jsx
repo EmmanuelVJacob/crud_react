@@ -6,9 +6,10 @@ import { InputGroup, FormControl, Button } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
 import FormContainer from "../Components/FormContainer";
 import { Form } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 function HomeScreen() {
- 
+  const navigate = useNavigate()
   const handleClose = () => setShow(false);
   const handleShow = (id, name, email) => {
     setShow(true);
@@ -39,6 +40,9 @@ function HomeScreen() {
       //   console.log(res.data);
       // })
       handleShow(id, name, email);
+    }else{
+      toast.error('user not updated')
+
     }
   };
   const [email, setEmail] = useState("");
@@ -60,7 +64,6 @@ function HomeScreen() {
   );
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(name,id,email,"wkjdfkj");
     axios.put(`api/admin/editUser/${id}`,{name:name,email:email}).then((res)=>{
       console.log(res.data)
       setName('')
@@ -78,9 +81,10 @@ function HomeScreen() {
           return user;
         });
       });
-   
+      toast.success('updated successfully')
     }).catch((err)=>{
       console.log(err);
+      toast.error('user not updated')
     })
   };
 
@@ -118,7 +122,7 @@ function HomeScreen() {
                   <td>
                     {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                     <a
-                      className="btn btn-primary"
+                      className="btn btn-primary" 
                       onClick={() => editUser(user._id, user.name, user.email)}
                     >
                       Edit
@@ -142,10 +146,7 @@ function HomeScreen() {
         </div>
       </div>
 
-      <Button variant="primary" onClick={handleShow}>
-        Launch demo modal
-      </Button>
-
+  <a className="btn btn-warning" onClick={()=>navigate('AdminAddUser')}>add user</a>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Modal heading</Modal.Title>
@@ -181,7 +182,7 @@ function HomeScreen() {
               </Form.Group>
 
               <Button type="submit" variant="primary" className="mt-3">
-                log in
+                update
               </Button>
             </Form>
           </FormContainer>

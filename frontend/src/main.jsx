@@ -18,7 +18,7 @@ import ProfileScreen from "./Screens/ProfileScreen.jsx";
 import PrivateRoute from "./Components/PrivateRoute.jsx";
 import AdminLogin from './Screens/AdminLogin.jsx'
 import AdminDash from './Screens/AdminDash.jsx'
-
+import AdminAddUser from "./Screens/AdminAddUser.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -28,10 +28,12 @@ const router = createBrowserRouter(
       <Route path="/register" element={<RegisterScreen/>}/>
       <Route path="" element = {<PrivateRoute/>}>
       <Route path="/profile" element={<ProfileScreen/>}/>
+      <Route path="/adminDash" element={<AdminDash/>}/>
+      <Route path="/adminDash/AdminAddUser" element={<AdminAddUser/>}/>
       </Route>
 
       <Route path="/admin" element={<AdminLogin/>}/>
-      <Route path="/adminDash" element={<AdminDash/>}/>
+  
     
 
       
